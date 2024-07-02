@@ -10,6 +10,8 @@ import (
 	"net/http"
 	"slices"
 	"time"
+	"fmt"
+	"runtime/debug"
 
 	"github.com/go-acme/lego/v4/challenge/tlsalpn01"
 	"github.com/rs/zerolog/log"
@@ -112,6 +114,24 @@ func (r *Router) ServeTCP(conn tcp.WriteCloser) {
 		// 1) we could be in the case where we have HTTP routers.
 		// 2) if it is an HTTPS request, even though we do not have any TLS routers,
 		// we still need to reply with a 404.
+	}
+	
+	mysql, err := isMySQL(conn)
+	if err != nil {
+		conn.Close()
+		return
+	}
+	
+	if mysql {
+		log.Error().Err(nil).Msg("It's MYSQL !!!!!!")
+		fmt.Errorf("%+v\n", r)
+		log.Error().Err(nil).Msgf("%+v", r)
+		log.Error().Err(nil).Msgf("%+v", r.muxerTCPTLS)
+		log.Error().Err(nil).Msgf("%+v", r.httpForwarder)
+		log.Error().Err(nil).Msg(r.httpForwarder.listener.TCPListener.Addr().String())
+		debug.PrintStack()
+		conn.Close()
+		return
 	}
 
 	// TODO -- Check if ProxyProtocol changes the first bytes of the request
