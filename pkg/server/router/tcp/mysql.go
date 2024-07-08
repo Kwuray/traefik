@@ -86,7 +86,19 @@ func (R *Router) serveMySQL(conn tcp.WriteCloser) {
 		conn.Close();
 		return
 	}
-	
+
+	br.Discard(br.Buffered())
+	hello, err := clientHelloInfo(br)
+	if err != nil {
+		conn.Close()
+		return
+	}
+
+	if !hello.isTLS {
+		log.Error().Msg("MySQL client did not send a TLS Client Hello, closing connection.")
+		conn.Close()
+		return
+	}
 	log.Error().Err(nil).Msg("MySQL success :DDD")
 	conn.Close();
 	return
