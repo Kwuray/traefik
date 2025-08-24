@@ -80,8 +80,9 @@
       timeout = "42s"
     [entryPoints.EntryPoint0.observability]
       accessLogs = true
-      tracing = true
       metrics = true
+      tracing = true
+      traceVerbosity = "foobar"
 
 [providers]
   providersThrottleDuration = "42s"
@@ -143,6 +144,21 @@
       ip = "foobar"
       hostname = "foobar"
       publishedService = "foobar"
+  [providers.kubernetesIngressNGINX]
+    endpoint = "foobar"
+    token = "foobar"
+    certAuthFilePath = "foobar"
+    throttleDuration = "42s"
+    watchNamespace = "foobar"
+    watchNamespaceSelector = "foobar"
+    ingressClass = "foobar"
+    controllerClass = "foobar"
+    watchIngressWithoutClass = true
+    ingressClassByName = true
+    publishService = "foobar"
+    publishStatusAddress = ["foobar", "foobar"]
+    defaultBackendService = "foobar"
+    disableSvcExternalName = true
   [providers.kubernetesCRD]
     endpoint = "foobar"
     token = "foobar"
@@ -372,6 +388,9 @@
       [metrics.otlp.http.headers]
         name0 = "foobar"
         name1 = "foobar"
+    [metrics.otlp.resourceAttributes]
+      name0 = "foobar"
+      name1 = "foobar"
 
 [ping]
   entryPoint = "foobar"
@@ -572,6 +591,7 @@
 [experimental]
   abortOnPluginFailure = true
   otlplogs = true
+  kubernetesIngressNGINX = true
   kubernetesGateway = true
   [experimental.plugins]
     [experimental.plugins.Descriptor0]

@@ -2,6 +2,9 @@
 CODE GENERATED AUTOMATICALLY
 THIS FILE MUST NOT BE EDITED BY HAND
 -->
+
+| Key (Path) | Value |
+|------------|-------|
 | `traefik/http/middlewares/Middleware01/addPrefix/prefix` | `foobar` |
 | `traefik/http/middlewares/Middleware02/basicAuth/headerField` | `foobar` |
 | `traefik/http/middlewares/Middleware02/basicAuth/realm` | `foobar` |
@@ -196,6 +199,7 @@ THIS FILE MUST NOT BE EDITED BY HAND
 | `traefik/http/routers/Router0/middlewares/1` | `foobar` |
 | `traefik/http/routers/Router0/observability/accessLogs` | `true` |
 | `traefik/http/routers/Router0/observability/metrics` | `true` |
+| `traefik/http/routers/Router0/observability/traceVerbosity` | `foobar` |
 | `traefik/http/routers/Router0/observability/tracing` | `true` |
 | `traefik/http/routers/Router0/priority` | `42` |
 | `traefik/http/routers/Router0/rule` | `foobar` |
@@ -215,6 +219,7 @@ THIS FILE MUST NOT BE EDITED BY HAND
 | `traefik/http/routers/Router1/middlewares/1` | `foobar` |
 | `traefik/http/routers/Router1/observability/accessLogs` | `true` |
 | `traefik/http/routers/Router1/observability/metrics` | `true` |
+| `traefik/http/routers/Router1/observability/traceVerbosity` | `foobar` |
 | `traefik/http/routers/Router1/observability/tracing` | `true` |
 | `traefik/http/routers/Router1/priority` | `42` |
 | `traefik/http/routers/Router1/rule` | `foobar` |
@@ -283,6 +288,8 @@ THIS FILE MUST NOT BE EDITED BY HAND
 | `traefik/http/services/Service02/loadBalancer/healthCheck/timeout` | `42s` |
 | `traefik/http/services/Service02/loadBalancer/healthCheck/unhealthyInterval` | `42s` |
 | `traefik/http/services/Service02/loadBalancer/passHostHeader` | `true` |
+| `traefik/http/services/Service02/loadBalancer/passiveHealthCheck/failureWindow` | `42s` |
+| `traefik/http/services/Service02/loadBalancer/passiveHealthCheck/maxFailedAttempts` | `42` |
 | `traefik/http/services/Service02/loadBalancer/responseForwarding/flushInterval` | `42s` |
 | `traefik/http/services/Service02/loadBalancer/servers/0/preservePath` | `true` |
 | `traefik/http/services/Service02/loadBalancer/servers/0/url` | `foobar` |

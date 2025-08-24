@@ -22,6 +22,7 @@ import (
 	"github.com/traefik/traefik/v3/pkg/provider/kubernetes/crd"
 	"github.com/traefik/traefik/v3/pkg/provider/kubernetes/gateway"
 	"github.com/traefik/traefik/v3/pkg/provider/kubernetes/ingress"
+	ingressnginx "github.com/traefik/traefik/v3/pkg/provider/kubernetes/ingress-nginx"
 	"github.com/traefik/traefik/v3/pkg/provider/kv/consul"
 	"github.com/traefik/traefik/v3/pkg/provider/kv/etcd"
 	"github.com/traefik/traefik/v3/pkg/provider/kv/redis"
@@ -204,7 +205,7 @@ func (a *LifeCycle) SetDefaults() {
 
 // Tracing holds the tracing configuration.
 type Tracing struct {
-	ServiceName             string             `description:"Sets the name for this service." json:"serviceName,omitempty" toml:"serviceName,omitempty" yaml:"serviceName,omitempty" export:"true"`
+	ServiceName             string             `description:"Defines the service name resource attribute." json:"serviceName,omitempty" toml:"serviceName,omitempty" yaml:"serviceName,omitempty" export:"true"`
 	ResourceAttributes      map[string]string  `description:"Defines additional resource attributes (key:value)." json:"resourceAttributes,omitempty" toml:"resourceAttributes,omitempty" yaml:"resourceAttributes,omitempty" export:"true"`
 	CapturedRequestHeaders  []string           `description:"Request headers to add as attributes for server and client spans." json:"capturedRequestHeaders,omitempty" toml:"capturedRequestHeaders,omitempty" yaml:"capturedRequestHeaders,omitempty" export:"true"`
 	CapturedResponseHeaders []string           `description:"Response headers to add as attributes for server and client spans." json:"capturedResponseHeaders,omitempty" toml:"capturedResponseHeaders,omitempty" yaml:"capturedResponseHeaders,omitempty" export:"true"`
@@ -233,19 +234,20 @@ type Providers struct {
 	Docker *docker.Provider      `description:"Enable Docker backend with default settings." json:"docker,omitempty" toml:"docker,omitempty" yaml:"docker,omitempty" label:"allowEmpty" file:"allowEmpty" export:"true"`
 	Swarm  *docker.SwarmProvider `description:"Enable Docker Swarm backend with default settings." json:"swarm,omitempty" toml:"swarm,omitempty" yaml:"swarm,omitempty" label:"allowEmpty" file:"allowEmpty" export:"true"`
 
-	File              *file.Provider                 `description:"Enable File backend with default settings." json:"file,omitempty" toml:"file,omitempty" yaml:"file,omitempty" export:"true"`
-	KubernetesIngress *ingress.Provider              `description:"Enable Kubernetes backend with default settings." json:"kubernetesIngress,omitempty" toml:"kubernetesIngress,omitempty" yaml:"kubernetesIngress,omitempty" label:"allowEmpty" file:"allowEmpty" export:"true"`
-	KubernetesCRD     *crd.Provider                  `description:"Enable Kubernetes backend with default settings." json:"kubernetesCRD,omitempty" toml:"kubernetesCRD,omitempty" yaml:"kubernetesCRD,omitempty" label:"allowEmpty" file:"allowEmpty" export:"true"`
-	KubernetesGateway *gateway.Provider              `description:"Enable Kubernetes gateway api provider with default settings." json:"kubernetesGateway,omitempty" toml:"kubernetesGateway,omitempty" yaml:"kubernetesGateway,omitempty" label:"allowEmpty" file:"allowEmpty" export:"true"`
-	Rest              *rest.Provider                 `description:"Enable Rest backend with default settings." json:"rest,omitempty" toml:"rest,omitempty" yaml:"rest,omitempty" label:"allowEmpty" file:"allowEmpty" export:"true"`
-	ConsulCatalog     *consulcatalog.ProviderBuilder `description:"Enable ConsulCatalog backend with default settings." json:"consulCatalog,omitempty" toml:"consulCatalog,omitempty" yaml:"consulCatalog,omitempty" label:"allowEmpty" file:"allowEmpty" export:"true"`
-	Nomad             *nomad.ProviderBuilder         `description:"Enable Nomad backend with default settings." json:"nomad,omitempty" toml:"nomad,omitempty" yaml:"nomad,omitempty" label:"allowEmpty" file:"allowEmpty" export:"true"`
-	Ecs               *ecs.Provider                  `description:"Enable AWS ECS backend with default settings." json:"ecs,omitempty" toml:"ecs,omitempty" yaml:"ecs,omitempty" label:"allowEmpty" file:"allowEmpty" export:"true"`
-	Consul            *consul.ProviderBuilder        `description:"Enable Consul backend with default settings." json:"consul,omitempty" toml:"consul,omitempty" yaml:"consul,omitempty" label:"allowEmpty" file:"allowEmpty"  export:"true"`
-	Etcd              *etcd.Provider                 `description:"Enable Etcd backend with default settings." json:"etcd,omitempty" toml:"etcd,omitempty" yaml:"etcd,omitempty" label:"allowEmpty" file:"allowEmpty" export:"true"`
-	ZooKeeper         *zk.Provider                   `description:"Enable ZooKeeper backend with default settings." json:"zooKeeper,omitempty" toml:"zooKeeper,omitempty" yaml:"zooKeeper,omitempty" label:"allowEmpty" file:"allowEmpty" export:"true"`
-	Redis             *redis.Provider                `description:"Enable Redis backend with default settings." json:"redis,omitempty" toml:"redis,omitempty" yaml:"redis,omitempty" label:"allowEmpty" file:"allowEmpty" export:"true"`
-	HTTP              *http.Provider                 `description:"Enable HTTP backend with default settings." json:"http,omitempty" toml:"http,omitempty" yaml:"http,omitempty" label:"allowEmpty" file:"allowEmpty" export:"true"`
+	File                   *file.Provider                 `description:"Enable File backend with default settings." json:"file,omitempty" toml:"file,omitempty" yaml:"file,omitempty" export:"true"`
+	KubernetesIngress      *ingress.Provider              `description:"Enable Kubernetes backend with default settings." json:"kubernetesIngress,omitempty" toml:"kubernetesIngress,omitempty" yaml:"kubernetesIngress,omitempty" label:"allowEmpty" file:"allowEmpty" export:"true"`
+	KubernetesIngressNGINX *ingressnginx.Provider         `description:"Enable Kubernetes Ingress NGINX provider." json:"kubernetesIngressNGINX,omitempty" toml:"kubernetesIngressNGINX,omitempty" yaml:"kubernetesIngressNGINX,omitempty" label:"allowEmpty" file:"allowEmpty" export:"true"`
+	KubernetesCRD          *crd.Provider                  `description:"Enable Kubernetes backend with default settings." json:"kubernetesCRD,omitempty" toml:"kubernetesCRD,omitempty" yaml:"kubernetesCRD,omitempty" label:"allowEmpty" file:"allowEmpty" export:"true"`
+	KubernetesGateway      *gateway.Provider              `description:"Enable Kubernetes gateway api provider with default settings." json:"kubernetesGateway,omitempty" toml:"kubernetesGateway,omitempty" yaml:"kubernetesGateway,omitempty" label:"allowEmpty" file:"allowEmpty" export:"true"`
+	Rest                   *rest.Provider                 `description:"Enable Rest backend with default settings." json:"rest,omitempty" toml:"rest,omitempty" yaml:"rest,omitempty" label:"allowEmpty" file:"allowEmpty" export:"true"`
+	ConsulCatalog          *consulcatalog.ProviderBuilder `description:"Enable ConsulCatalog backend with default settings." json:"consulCatalog,omitempty" toml:"consulCatalog,omitempty" yaml:"consulCatalog,omitempty" label:"allowEmpty" file:"allowEmpty" export:"true"`
+	Nomad                  *nomad.ProviderBuilder         `description:"Enable Nomad backend with default settings." json:"nomad,omitempty" toml:"nomad,omitempty" yaml:"nomad,omitempty" label:"allowEmpty" file:"allowEmpty" export:"true"`
+	Ecs                    *ecs.Provider                  `description:"Enable AWS ECS backend with default settings." json:"ecs,omitempty" toml:"ecs,omitempty" yaml:"ecs,omitempty" label:"allowEmpty" file:"allowEmpty" export:"true"`
+	Consul                 *consul.ProviderBuilder        `description:"Enable Consul backend with default settings." json:"consul,omitempty" toml:"consul,omitempty" yaml:"consul,omitempty" label:"allowEmpty" file:"allowEmpty"  export:"true"`
+	Etcd                   *etcd.Provider                 `description:"Enable Etcd backend with default settings." json:"etcd,omitempty" toml:"etcd,omitempty" yaml:"etcd,omitempty" label:"allowEmpty" file:"allowEmpty" export:"true"`
+	ZooKeeper              *zk.Provider                   `description:"Enable ZooKeeper backend with default settings." json:"zooKeeper,omitempty" toml:"zooKeeper,omitempty" yaml:"zooKeeper,omitempty" label:"allowEmpty" file:"allowEmpty" export:"true"`
+	Redis                  *redis.Provider                `description:"Enable Redis backend with default settings." json:"redis,omitempty" toml:"redis,omitempty" yaml:"redis,omitempty" label:"allowEmpty" file:"allowEmpty" export:"true"`
+	HTTP                   *http.Provider                 `description:"Enable HTTP backend with default settings." json:"http,omitempty" toml:"http,omitempty" yaml:"http,omitempty" label:"allowEmpty" file:"allowEmpty" export:"true"`
 
 	Plugin map[string]PluginConf `description:"Plugins configuration." json:"plugin,omitempty" toml:"plugin,omitempty" yaml:"plugin,omitempty"`
 }
@@ -325,6 +327,15 @@ func (c *Configuration) SetEffectiveConfiguration() {
 			continue
 		}
 
+		switch resolver.ACME.DNSChallenge.Provider {
+		case "googledomains", "cloudxns", "brandit":
+			log.Warn().Msgf("%s DNS provider is deprecated.", resolver.ACME.DNSChallenge.Provider)
+		case "dnspod":
+			log.Warn().Msgf("%s provider is deprecated, please use 'tencentcloud' provider instead.", resolver.ACME.DNSChallenge.Provider)
+		case "azure":
+			log.Warn().Msgf("%s provider is deprecated, please use 'azuredns' provider instead.", resolver.ACME.DNSChallenge.Provider)
+		}
+
 		if resolver.ACME.DNSChallenge.DisablePropagationCheck {
 			log.Warn().Msgf("disablePropagationCheck is now deprecated, please use propagation.disableChecks instead.")
 
@@ -388,6 +399,16 @@ func (c *Configuration) ValidateConfiguration() error {
 			log.Warn().Msgf("v2 rules syntax is now deprecated, please use v3 instead...")
 		default:
 			return fmt.Errorf("unsupported default rule syntax configuration: %q", c.Core.DefaultRuleSyntax)
+		}
+	}
+
+	if c.Providers != nil && c.Providers.KubernetesIngressNGINX != nil {
+		if c.Experimental == nil || !c.Experimental.KubernetesIngressNGINX {
+			return errors.New("the experimental KubernetesIngressNGINX feature must be enabled to use the KubernetesIngressNGINX provider")
+		}
+
+		if c.Providers.KubernetesIngressNGINX.WatchNamespace != "" && c.Providers.KubernetesIngressNGINX.WatchNamespaceSelector != "" {
+			return errors.New("watchNamespace and watchNamespaceSelector options are mutually exclusive")
 		}
 	}
 

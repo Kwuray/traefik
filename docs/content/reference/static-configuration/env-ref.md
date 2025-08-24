@@ -91,7 +91,7 @@ TLS key
 Defines additional resource attributes (key:value).
 
 `TRAEFIK_ACCESSLOG_OTLP_SERVICENAME`:  
-Set the name for this service. (Default: ```traefik```)
+Defines the service name resource attribute. (Default: ```traefik```)
 
 `TRAEFIK_API`:  
 Enable api/dashboard. (Default: ```false```)
@@ -283,13 +283,16 @@ Subject alternative names.
 Default TLS options for the routers linked to the entry point.
 
 `TRAEFIK_ENTRYPOINTS_<NAME>_OBSERVABILITY_ACCESSLOGS`:  
- (Default: ```true```)
+Enables access-logs for this entryPoint. (Default: ```true```)
 
 `TRAEFIK_ENTRYPOINTS_<NAME>_OBSERVABILITY_METRICS`:  
- (Default: ```true```)
+Enables metrics for this entryPoint. (Default: ```true```)
+
+`TRAEFIK_ENTRYPOINTS_<NAME>_OBSERVABILITY_TRACEVERBOSITY`:  
+Defines the tracing verbosity level for this entryPoint. (Default: ```minimal```)
 
 `TRAEFIK_ENTRYPOINTS_<NAME>_OBSERVABILITY_TRACING`:  
- (Default: ```true```)
+Enables tracing for this entryPoint. (Default: ```true```)
 
 `TRAEFIK_ENTRYPOINTS_<NAME>_PROXYPROTOCOL`:  
 Proxy-Protocol configuration. (Default: ```false```)
@@ -338,6 +341,9 @@ Enable debug mode for the FastProxy implementation. (Default: ```false```)
 
 `TRAEFIK_EXPERIMENTAL_KUBERNETESGATEWAY`:  
 (Deprecated) Allow the Kubernetes gateway api provider usage. (Default: ```false```)
+
+`TRAEFIK_EXPERIMENTAL_KUBERNETESINGRESSNGINX`:  
+Allow the Kubernetes Ingress NGINX provider usage. (Default: ```false```)
 
 `TRAEFIK_EXPERIMENTAL_LOCALPLUGINS_<NAME>`:  
 Local plugins configuration. (Default: ```false```)
@@ -475,7 +481,7 @@ TLS key
 Defines additional resource attributes (key:value).
 
 `TRAEFIK_LOG_OTLP_SERVICENAME`:  
-Set the name for this service. (Default: ```traefik```)
+Defines the service name resource attribute. (Default: ```traefik```)
 
 `TRAEFIK_METRICS_ADDINTERNALS`:  
 Enables metrics for internal services (ping, dashboard, etc...). (Default: ```false```)
@@ -594,8 +600,11 @@ TLS key
 `TRAEFIK_METRICS_OTLP_PUSHINTERVAL`:  
 Period between calls to collect a checkpoint. (Default: ```10```)
 
+`TRAEFIK_METRICS_OTLP_RESOURCEATTRIBUTES_<NAME>`:  
+Defines additional resource attributes (key:value).
+
 `TRAEFIK_METRICS_OTLP_SERVICENAME`:  
-OTEL service name to use. (Default: ```traefik```)
+Defines the service name resource attribute. (Default: ```traefik```)
 
 `TRAEFIK_METRICS_PROMETHEUS`:  
 Prometheus metrics exporter type. (Default: ```false```)
@@ -999,6 +1008,51 @@ Kubernetes bearer token (not needed for in-cluster client). It accepts either a 
 `TRAEFIK_PROVIDERS_KUBERNETESINGRESS`:  
 Enable Kubernetes backend with default settings. (Default: ```false```)
 
+`TRAEFIK_PROVIDERS_KUBERNETESINGRESSNGINX`:  
+Enable Kubernetes Ingress NGINX provider. (Default: ```false```)
+
+`TRAEFIK_PROVIDERS_KUBERNETESINGRESSNGINX_CERTAUTHFILEPATH`:  
+Kubernetes certificate authority file path (not needed for in-cluster client).
+
+`TRAEFIK_PROVIDERS_KUBERNETESINGRESSNGINX_CONTROLLERCLASS`:  
+Ingress Class Controller value this controller satisfies. (Default: ```k8s.io/ingress-nginx```)
+
+`TRAEFIK_PROVIDERS_KUBERNETESINGRESSNGINX_DEFAULTBACKENDSERVICE`:  
+Service used to serve HTTP requests not matching any known server name (catch-all). Takes the form 'namespace/name'.
+
+`TRAEFIK_PROVIDERS_KUBERNETESINGRESSNGINX_DISABLESVCEXTERNALNAME`:  
+Disable support for Services of type ExternalName. (Default: ```false```)
+
+`TRAEFIK_PROVIDERS_KUBERNETESINGRESSNGINX_ENDPOINT`:  
+Kubernetes server endpoint (required for external cluster client).
+
+`TRAEFIK_PROVIDERS_KUBERNETESINGRESSNGINX_INGRESSCLASS`:  
+Name of the ingress class this controller satisfies. (Default: ```nginx```)
+
+`TRAEFIK_PROVIDERS_KUBERNETESINGRESSNGINX_INGRESSCLASSBYNAME`:  
+Define if Ingress Controller should watch for Ingress Class by Name together with Controller Class. (Default: ```false```)
+
+`TRAEFIK_PROVIDERS_KUBERNETESINGRESSNGINX_PUBLISHSERVICE`:  
+Service fronting the Ingress controller. Takes the form 'namespace/name'.
+
+`TRAEFIK_PROVIDERS_KUBERNETESINGRESSNGINX_PUBLISHSTATUSADDRESS`:  
+Customized address (or addresses, separated by comma) to set as the load-balancer status of Ingress objects this controller satisfies.
+
+`TRAEFIK_PROVIDERS_KUBERNETESINGRESSNGINX_THROTTLEDURATION`:  
+Ingress refresh throttle duration. (Default: ```0```)
+
+`TRAEFIK_PROVIDERS_KUBERNETESINGRESSNGINX_TOKEN`:  
+Kubernetes bearer token (not needed for in-cluster client). It accepts either a token value or a file path to the token.
+
+`TRAEFIK_PROVIDERS_KUBERNETESINGRESSNGINX_WATCHINGRESSWITHOUTCLASS`:  
+Define if Ingress Controller should also watch for Ingresses without an IngressClass or the annotation specified. (Default: ```false```)
+
+`TRAEFIK_PROVIDERS_KUBERNETESINGRESSNGINX_WATCHNAMESPACE`:  
+Namespace the controller watches for updates to Kubernetes objects. All namespaces are watched if this parameter is left empty.
+
+`TRAEFIK_PROVIDERS_KUBERNETESINGRESSNGINX_WATCHNAMESPACESELECTOR`:  
+Selector selects namespaces the controller watches for updates to Kubernetes objects.
+
 `TRAEFIK_PROVIDERS_KUBERNETESINGRESS_ALLOWEMPTYSERVICES`:  
 Allow creation of services without endpoints. (Default: ```false```)
 
@@ -1363,4 +1417,4 @@ Query params to not redact.
 Sets the rate between 0.0 and 1.0 of requests to trace. (Default: ```1.000000```)
 
 `TRAEFIK_TRACING_SERVICENAME`:  
-Sets the name for this service. (Default: ```traefik```)
+Defines the service name resource attribute. (Default: ```traefik```)
